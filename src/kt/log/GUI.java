@@ -2,24 +2,21 @@ package kt.log;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 
-public class GUI implements ActionListener {
+public class GUI implements MouseListener {
 
-    static Dane dane = new Dane();
-
-    private static  JLabel userLabel;
-    private static JTextField usernameField;
-    private static JLabel passwordLabel;
-    private static JPasswordField passwordField;
-    private static JButton logInButton;
+    private static JButton runButton;
     private static JPanel panel;
     private static JFrame frame;
     private static JButton cancelButton;
+
+    Random rand = new Random();
+
 
 
     public void openGui(){
@@ -33,41 +30,45 @@ public class GUI implements ActionListener {
 
         panel.setLayout(null);
 
-        userLabel = new JLabel("Username:");
-        userLabel.setBounds(10,20,80,25);
-        panel.add(userLabel);
 
-        usernameField = new JTextField(25);
-        usernameField.setBounds(100,20,165,25);
-        panel.add(usernameField);
+        runButton = new JButton("RUN!");
+        runButton.setBounds(10,300,165,75);
+        panel.add(runButton);
+        runButton.addMouseListener(this);
 
-        passwordLabel = new JLabel("Password:");
-        passwordLabel.setBounds(10,50,80,25);
-        panel.add(passwordLabel);
-
-        passwordField = new JPasswordField(25);
-        passwordField.setBounds(100,50,165,25);
-        panel.add(passwordField);
-
-        logInButton = new JButton("Log In");
-        logInButton.setBounds(100,80,165,25);
-        logInButton.addActionListener(new GUI());
-        panel.add(logInButton);
 
         cancelButton = new JButton("Cancel");
-        cancelButton.setBounds(100,110,165,25);
+        cancelButton.setBounds(490,300,165,75);
         panel.add(cancelButton);
     }
 
     @Override
-    public void actionPerformed(ActionEvent actionEvent) {
-        String user = usernameField.getText();
-        String password = String.valueOf(passwordField.getPassword());
+    public void mouseClicked(MouseEvent mouseEvent) {
 
-        if(dane.userLogs.containsKey(user) && dane.userLogs.get(user).equals(password)){
-            panel.setBackground(Color.green);
-        } else{
-            panel.setBackground(Color.red);
+    }
+
+    @Override
+    public void mousePressed(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent mouseEvent) {
+        int x = rand.nextInt(490);
+        int y = rand.nextInt(300);
+        if(!(runButton.getMousePosition().getX() <=20)){
+            runButton.setLocation(x, y);
         }
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent mouseEvent) {
+
     }
 }
